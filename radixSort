@@ -1,0 +1,31 @@
+import time
+
+def radixsort(arr):
+    max_value = max(arr)
+    num_digits = len(str(max_value))
+
+    for digit in range(num_digits):
+        buckets = [[] for _ in range(10)]
+
+        for num in arr:
+            current_digit = (num // (10 ** digit)) % 10
+            buckets[current_digit].append(num)
+
+        arr = [num for bucket in buckets for num in bucket]
+
+    return arr
+
+
+with open("numbers.txt", "r") as file:
+    numbers = [int(line) for line in file]
+
+start_time = time.time()
+sorted_numbers=radixsort(numbers)
+end_time = time.time()
+execution_time = end_time - start_time
+
+print("Sorted numbers:")
+for num in sorted_numbers:
+    print(num)
+
+print("Execution time:", execution_time, "seconds")
