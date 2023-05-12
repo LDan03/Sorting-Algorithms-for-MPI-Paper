@@ -1,0 +1,27 @@
+import time
+
+def bubblesort(arr):
+    n = len(arr)
+
+    for i in range(n):
+
+        for j in range(0, n - i - 1):
+
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+    return arr
+
+with open("numbers.txt", "r") as file:
+    numbers = [int(line) for line in file]
+
+start_time = time.time()
+sorted_numbers = bubblesort(numbers)
+end_time = time.time()
+execution_time = end_time - start_time
+
+print("Sorted numbers:")
+for num in sorted_numbers:
+    print(num)
+
+print("Execution time:", execution_time, "seconds")
