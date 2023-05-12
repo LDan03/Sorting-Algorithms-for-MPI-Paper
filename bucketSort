@@ -1,0 +1,32 @@
+import time
+
+def bucketsort(numbers):
+    min_value = min(numbers)
+    max_value = max(numbers)
+    num_buckets = max_value - min_value + 1
+
+    buckets = [[] for _ in range(num_buckets)]
+
+    for num in numbers:
+        index = num - min_value
+        buckets[index].append(num)
+
+    sorted_numbers = []
+    for bucket in buckets:
+        sorted_numbers.extend(sorted(bucket))
+
+    return sorted_numbers
+
+with open("numbers.txt", "r") as file:
+    numbers = [int(line) for line in file]
+
+start_time = time.time()
+sorted_numbers=bucketsort(numbers)
+end_time = time.time()
+execution_time = end_time - start_time
+
+print("Sorted numbers:")
+for num in sorted_numbers:
+    print(num)
+
+print("Execution time:", execution_time, "seconds")
