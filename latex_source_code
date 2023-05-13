@@ -1,0 +1,258 @@
+\documentclass{article}
+
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{tabularx}
+
+\setlength{\parindent}{1cm}
+\setlength{\parskip}{0.35cm}
+
+\title{Sorting Algorithms : \newline
+Unraveling Efficiency and Complexity}
+\author{Daniel Lupu}
+\date{12th May 2023}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+    Sorting algorithms play a crucial role in computer science and are essential for efficiently arranging data in a particular order. This paper provides a comprehensive comparative analysis of various sorting algorithms. We evaluate these algorithms based on their time complexity, space complexity, stability, and adaptability to different data scenarios. \indent By examining their strengths and weaknesses, this paper aims to determine the best algorithm for a specific use.
+\end{abstract}
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Introduction} \label{sec:introduction}
+
+Sorting algorithms play a vital role in the field of computer science by enabling efficient organization and manipulation of data. They are essential tools for arranging elements in a specific order, which is crucial for various applications such as searching, data analysis, database management, and more. Sorting algorithms have been extensively studied and optimized over the years, resulting in a diverse range of techniques and approaches.
+
+This paper aims to provide a comprehensive comparative analysis of several widely used sorting algorithms, including bucket sort, quick sort, merge sort, heap sort, insertion sort, selection sort, radix sort, and counting sort. By examining the characteristics and performance metrics of these algorithms, we aim to assist developers and researchers in selecting the most suitable algorithm for their specific use cases.
+
+The choice of a sorting algorithm depends on several factors, including the size of the dataset, the distribution of the data, the stability requirements, the available memory, and the desired performance goals. Each algorithm has its strengths and weaknesses, making it important to understand their properties and trade-offs.
+
+Through this analysis, we will explore the time complexity, space complexity, stability, and adaptability of each algorithm. Time complexity refers to the amount of time it takes for an algorithm to complete its execution, while space complexity refers to the amount of memory required. Stability refers to whether the algorithm preserves the relative order of elements with equal keys. Adaptability refers to the algorithm's ability to handle different types of data and adjust its performance accordingly.
+
+The code used to test the algorithms is available at https://github.com/LDan03/Sorting-Algorithms-for-MPI-Paper. The input is a list of 100,000 numbers that can have up to 5 digits. The array is also available at the link mentioned above.
+
+In the following sections, we will delve into the details of each sorting algorithm, providing a thorough examination of their working principles, algorithmic steps, and performance metrics. We will also discuss the strengths, limitations, and potential use cases for each algorithm. Through this analysis, we aim to provide a comprehensive understanding of sorting algorithms, empowering practitioners and researchers to make informed decisions in their pursuit of efficient data organization and manipulation.
+
+\newpage
+\section{Sorting Algorithms} \label{sec:sorting}
+We will go over nine types of sorting algorithms, namely: Bubble Sort, Quick Sort, Merge Sort, Heap Sort, Insertion Sort, Selection Sort, Radix Sort, Bucket Sort and Counting Sort to decide the best use for each.
+\subsection{Bubble Sort} \label{subsec:bubble}
+Bubble sort is a simple comparison-based sorting algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. It is named "bubble sort" due to the way smaller elements "bubble" to the top of the list in each iteration. While bubble sort is straightforward to implement, it is generally considered inefficient for large datasets due to its high time complexity.
+
+The working principle of bubble sort involves iteratively comparing adjacent elements and swapping them if they are in the wrong order. The algorithm passes through the list multiple times until the entire list becomes sorted. In each pass, the largest element "bubbles" to the end of the list, gradually building the sorted portion from the right side.
+
+The time complexity of bubble sort depends on the number of elements in the list. In the worst-case scenario, where the list is sorted in reverse order, bubble sort requires multiple passes through the entire list for each element. Therefore, the time complexity of bubble sort is $O(n^2)$ in the worst case and average case. In the best-case scenario, where the list is already sorted, bubble sort exhibits a time complexity of $O(n)$ as it requires only a single pass to confirm the sorted order.
+
+Bubble sort operates by comparing and swapping elements within the original list, requiring only a constant amount of additional space for temporary variables. Hence, the space complexity of bubble sort is $O(1)$, making it an in-place sorting algorithm.
+
+Bubble sort's simplicity and ease of implementation make it suitable for small datasets or as an educational tool to introduce the concept of sorting algorithms. However, due to its high time complexity, bubble sort is generally inefficient for large datasets. Other sorting algorithms, such as quicksort or mergesort, offer better performance in most scenarios.
+
+It took 390 seconds on average for this algorithm to sort the list of 100,000 elements.
+
+\newpage
+\subsection{Quick Sort} \label{subsec:quick}
+Quicksort is a widely used comparison-based sorting algorithm known for its efficiency and average-case performance. It follows the divide-and-conquer approach, recursively dividing the input into smaller subproblems, sorting them, and combining the results to obtain a sorted list. Quicksort's ability to efficiently handle large datasets makes it a popular choice in various applications.
+
+The working principle of quicksort involves selecting a pivot element from the list and partitioning the other elements into two sublists based on their relationship to the pivot. The elements smaller than the pivot are placed to the left, while the elements larger than the pivot are placed to the right. This process is repeated recursively for the sublists until the entire list is sorted.
+
+The time complexity of quicksort depends on various factors, including the choice of pivot and the distribution of the input elements. In the average case, quicksort exhibits a time complexity of $O(n \log n)$, making it highly efficient for large datasets. However, in the worst case, when the pivot selection is suboptimal (e.g., selecting the smallest or largest element), quicksort can degrade to a time complexity of $O(n^2)$. The choice of a good pivot selection strategy, such as selecting the median-of-three or using randomized pivoting, helps mitigate the likelihood of worst-case behavior.
+
+Quicksort is typically implemented as an in-place sorting algorithm, meaning it does not require additional memory proportional to the input size. The partitioning process is done within the original list, and the recursive calls operate on sublists, eliminating the need for significant extra space. Thus, the space complexity of quicksort is generally considered $O(\log n)$ due to the recursive calls that consume stack space.
+
+Quicksort's efficient average-case performance makes it a popular choice for sorting large datasets. It is widely used in various applications, including sorting algorithm libraries, database management systems, and general-purpose programming languages.
+
+It took this algorithm only 0.15 seconds to sort the array of 100,000 elements.
+
+\newpage
+\subsection{Merge Sort} \label{subsec:merge}
+Mergesort is a comparison-based sorting algorithm that follows the divide-and-conquer strategy. It works by recursively dividing the input list into smaller sublists, sorting them, and then merging the sorted sublists to obtain a fully sorted list. Mergesort is known for its consistent performance and ability to handle large datasets efficiently.
+
+The working principle of mergesort involves breaking down the input list into smaller sublists until each sublist contains only one element (considered sorted). Then, the sorted sublists are merged back together, repeatedly combining two sublists at a time until a single sorted list is achieved.
+
+Mergesort typically requires additional memory proportional to the size of the input list to store the temporary sublists during the merging process. This additional space complexity is $O(n)$, where $n$ is the number of elements in the input list. In situations where memory is limited, an optimized version of mergesort called "in-place mergesort" can be used to reduce the space complexity to $O(1)$ by performing the merging step without using additional memory.
+
+Mergesort is a stable sorting algorithm as it preserves the relative order of elements with equal keys during the merging process. When two elements are considered equal, the element from the left sublist is placed before the element from the right sublist, ensuring the stability of the algorithm.
+
+Mergesort's consistent performance and stability make it suitable for a wide range of applications. It is particularly well-suited for scenarios where maintaining the relative order of elements with equal keys is crucial. Additionally, mergesort's ability to handle large datasets efficiently and its stable time complexity of $O(n \log n)$ make it a popular choice in various domains such as external sorting, parallel computing, and file manipulation.
+
+It took 0.23 seconds for Mergesort to successfully sort the array of 100,000 elements.
+
+\newpage
+\subsection{Heap Sort} \label{subsec:heap}
+Heap Sort stands out as an efficient comparison-based algorithm known for its simplicity and consistent performance. Heap Sort utilizes the power of binary heaps to efficiently sort large datasets.
+
+Heap Sort relies on the concept of binary heaps, specifically max-heaps or min-heaps, to sort elements. A binary heap is a binary tree-based data structure where each node follows a specific ordering property with its child nodes. In Heap Sort, we typically use a max-heap, where the parent node has a higher value than its children. The working principle of Heap Sort involves two main steps: heapifying the input array and repeatedly extracting the maximum element from the heap.
+
+Heap Sort offers consistent performance with a time complexity of $O(n \log n)$ in all cases, where $n$ is the number of elements in the input array. Building the heap requires $O(n)$ operations, and extracting the maximum element and heapifying the heap require $\log n$ operations. As a result, the overall time complexity remains $O(n \log n)$.
+
+Heap Sort operates in-place, meaning it doesn't require additional memory proportional to the input size. The space complexity of Heap Sort is $O(1)$, making it memory-efficient for sorting large datasets.
+
+Heap Sort is not a stable sorting algorithm. While the heapification process may change the relative order of elements with equal keys, the extraction of the maximum element doesn't preserve their original order.
+
+Heap Sort finds applications in various domains, including operating systems, network routing algorithms, and priority queues. Its ability to sort elements efficiently, along with its in-place nature, makes it suitable for scenarios where memory usage is a concern. Additionally, Heap Sort's consistent time complexity makes it a popular choice when dealing with large datasets.
+
+However, it's worth noting that Heap Sort may not be the optimal choice when stability or maintaining the original order of equal elements is essential. In such cases, other sorting algorithms like mergesort or radixsort may be more appropriate.
+
+This algorithm sorted the list of 100,000 elements in 0.41 seconds.
+
+\newpage
+\subsection{Insertion Sort} \label{subsec:insertion}
+Insertion Sort follows a simple and intuitive working principle. It iterates through the input array, gradually building a sorted portion at the beginning of the array. In each iteration, the algorithm selects an element and inserts it into its correct position within the sorted portion, shifting other elements if necessary. This process continues until the entire array is sorted.
+
+Insertion Sort has an average and worst-case time complexity of $O(n^2)$, where $n$ is the number of elements in the input array. In the worst-case scenario, when the input array is in reverse order, Insertion Sort requires the maximum number of comparisons and shifts. However, for partially sorted or nearly sorted arrays, Insertion Sort exhibits a best-case time complexity of $O(n)$, making it highly efficient in such scenarios.
+
+Insertion Sort operates in-place, meaning it doesn't require additional memory proportional to the input size. The space complexity of Insertion Sort is $O(1)$, making it memory-efficient for sorting datasets of any size.
+
+Insertion Sort is a stable sorting algorithm, meaning it preserves the relative order of elements with equal keys. When two elements are considered equal, the element that appears earlier in the original array will remain earlier in the sorted array.
+
+Insertion Sort's simplicity and efficiency make it suitable for several applications. It performs well when sorting small to medium-sized datasets or when dealing with partially sorted arrays. However, Insertion Sort may not be the best choice for sorting large or heavily unsorted datasets. Other algorithms like Quicksort or Mergesort are more efficient in such scenarios. Nonetheless, Insertion Sort's simplicity and stability make it a valuable tool, especially when sorting small datasets or when simplicity and code readability are prioritized.
+
+Insertion sort rearranged the array of 100,000 elements in 187 seconds.
+
+\newpage
+\subsection{Selection Sort} \label{subsec:selection}
+Selection Sort stands out for its simplicity and efficiency, making it a popular choice for small to medium-sized datasets. It follows a straightforward working principle. It divides the input array into two portions: the sorted portion at the beginning and the unsorted portion at the end. In each iteration, the algorithm finds the minimum (or maximum) element from the unsorted portion and swaps it with the leftmost element of the unsorted portion. This process continues until the entire array is sorted.
+
+Selection Sort has a time complexity of $O(n^2)$ in all cases, where $n$ is the number of elements in the input array. The algorithm performs a total of $(n-1) + (n-2) + \ldots + 2 + 1$ comparisons, which is a sum of the first $(n-1)$ natural numbers. The number of swaps is also $O(n)$. Due to its nested iteration structure, Selection Sort is not the most efficient algorithm for large datasets, but it performs well for small to medium-sized arrays.
+
+Selection Sort operates in-place, meaning it doesn't require additional memory proportional to the input size. The space complexity of Selection Sort is $O(1)$, making it memory-efficient for sorting datasets of any size.
+
+Selection Sort is not a stable sorting algorithm. The swapping process during each iteration may change the relative order of elements with equal keys. However, if stability is a requirement, additional checks and modifications can be made to ensure stability at the expense of increased complexity. Selection Sort's simplicity and ease of implementation make it suitable for scenarios where code simplicity and readability are prioritized. It performs well when sorting small to medium-sized datasets or when the number of swaps is a concern.
+
+It sorted the 100,000 array in 165 seconds.
+
+\newpage
+\subsection{Radix Sort} \label{subsec:radix}
+Radix Sort is a non-comparative sorting algorithm that operates on integers or strings by processing the digits or characters from the least significant digit to the most significant digit. It belongs to the family of linear-time sorting algorithms and is particularly efficient when sorting large datasets with a fixed number of digits. Radix Sort provides a unique approach to sorting that avoids direct element comparisons and exploits the properties of positional notation.
+
+The working principle of Radix Sort is based on the idea of sorting elements by their individual digits or characters. The algorithm starts by considering the least significant digit (rightmost digit or character) of each element and distributes the elements into buckets based on that digit. Then, it repeatedly applies this process for the next more significant digit until all the digits have been processed. By sorting the elements in multiple passes, Radix Sort achieves the final sorted order.
+
+The time complexity of Radix Sort is $O(k \cdot n)$, where $n$ is the number of elements to be sorted, and $k$ is the maximum number of digits or characters among the elements. Radix Sort performs a stable sort for each digit position, and the number of passes is determined by the number of digits. Since the number of digits is usually constant, Radix Sort achieves linear time complexity in most cases.
+
+Radix Sort requires additional memory to store the intermediate results during each pass. The space complexity of Radix Sort is $O(n + k)$, where $n$ is the number of elements and $k$ is the maximum number of digits or characters.
+
+Radix Sort is a stable sorting algorithm. Since it performs sorting based on individual digits or characters, the relative order of elements with equal digits or characters is preserved. It is commonly used in scenarios where sorting large datasets with a fixed number of digits or characters is required. It finds applications in areas such as string sorting, sorting integers with a specific number of digits, and sorting elements with multiple keys. Radix Sort can outperform comparison-based sorting algorithms for such specific cases due to its linear time complexity. However, Radix Sort may not be the optimal choice when sorting elements with a varying number of digits or characters or when working with large numbers that require a significant number of passes.
+
+Radix Sort finished sorting the 100,000 numbers list in 0.12 seconds.
+
+\newpage
+\subsection{Bucket Sort} \label{subsec:bucket}
+Bucket Sort is a distribution-based sorting algorithm that divides the input into a set of buckets and then sorts the elements within each bucket individually. It is particularly effective when the input data is uniformly distributed over a range. Bucket Sort provides a unique approach to sorting that leverages the concept of hashing and the properties of evenly distributed elements.
+
+The working principle of Bucket Sort involves dividing the input into several buckets and distributing the elements into these buckets based on their values. Each bucket represents a range or interval of values. After distributing the elements into buckets, a separate sorting algorithm is applied to sort the elements within each bucket. Finally, the sorted elements from all the buckets are concatenated to obtain the final sorted output.
+
+The time complexity of Bucket Sort depends on the sorting algorithm used to sort the elements within each bucket and the distribution of elements among the buckets. In the best-case scenario, where the elements are evenly distributed among the buckets, the time complexity can be considered as $O(n + k)$, where $n$ is the number of elements and $k$ is the number of buckets. However, in the worst-case scenario, when all the elements fall into a single bucket, the time complexity can degrade to $O(n^2)$ if an inefficient sorting algorithm is used within the buckets.
+
+Bucket Sort requires additional memory to store the buckets and their contents. The space complexity of Bucket Sort is $O(n + k)$, where $n$ is the number of elements and $k$ is the number of buckets. In addition to the buckets, the memory usage also depends on the sorting algorithm used within the buckets.
+
+Bucket Sort can be implemented as a stable sorting algorithm by using a stable sorting algorithm within each bucket. This means that the relative order of elements with equal values is preserved during the sorting process.
+
+It is particularly effective when the input data is uniformly distributed over a range. It finds applications in scenarios where the input range is known and the elements are uniformly distributed within that range, such as sorting floating-point numbers within a specific range or sorting grades within a specific grading scale.
+
+However, Bucket Sort may not be the optimal choice when the input data is skewed or heavily unbalanced. If the elements are not evenly distributed across the buckets, the performance of Bucket Sort can degrade significantly.
+
+Bucket Sort averaged at 0.04 seconds when sorting the 100,000 elements array.
+
+\newpage
+\subsection{Counting Sort} \label{subsec:counting}
+Counting Sort is an efficient, non-comparative sorting algorithm that works particularly well when the range of input values is small and known beforehand. It relies on the concept of counting the occurrences of each distinct element and then using this information to determine the correct sorted position for each element. Counting Sort is a linear-time sorting algorithm that provides excellent performance for datasets with limited value ranges.
+
+The working principle of Counting Sort involves two main steps: counting and repositioning. The algorithm counts the number of occurrences of each distinct element in the input array and uses this information to determine the correct sorted position for each element. It achieves this by constructing a cumulative count array that specifies the number of elements that are less than or equal to each distinct element value. Based on this information, the elements are placed in their correct sorted positions.
+
+The time complexity of Counting Sort is $O(n + k)$, where $n$ is the number of elements in the input array and $k$ is the range of input values. Counting Sort achieves linear time complexity by performing the counting step in $O(n)$ time and the repositioning step in $O(k)$ time.
+
+Counting Sort requires additional memory to store the count array and the temporary array used for repositioning the elements. The space complexity of Counting Sort is $O(n + k)$, where $n$ is the number of elements and $k$ is the range of input values. In cases where the range is significantly smaller than the number of elements, the space complexity can be considered linear.
+
+It is a stable sorting algorithm. The elements with equal values maintain their relative order in the sorted output, as the repositioning step is performed from right to left. Counting Sort is best suited for situations where the range of input values is small and known beforehand. It is highly efficient for datasets with limited value ranges, such as sorting integers within a known range or sorting characters in a limited character set. Counting Sort can outperform comparison-based sorting algorithms in these specific cases due to its linear time complexity.
+
+However, Counting Sort may not be suitable for datasets with large value ranges, as the memory requirements for the count array can become impractical. Additionally, Counting Sort assumes that the input values are non-negative integers or can be transformed into non-negative integers using a mapping function.
+
+This algorithm was the fastest among the nine presented here, averaging at 0.03 seconds when sorting the 100,000 elements array.
+
+\newpage
+\section{Conclusion} \label{sec:conclusion}
+We have explored and discussed nine different sorting algorithms: Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, Quick Sort, Heap Sort, Radix Sort, Bucket Sort, and Counting Sort. Each algorithm has its unique characteristics, advantages, and limitations.
+
+Here is the average result after trying out these algorithms 5 times each on an array of 100000 elements that can have up to 5 digits:
+\begin{table}[htbp]
+    \centering
+    
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Algorithm} & \textbf{Sorting Time (ms)} \\
+    \hline
+    Bubble Sort & 390,000 \\
+    \hline
+    Quick Sort & 150 \\
+    \hline
+    Merge Sort & 230 \\
+    \hline
+    Heap Sort & 410 \\
+    \hline
+    Insertion Sort & 187,000 \\
+    \hline
+    Selection Sort & 165,000 \\
+    \hline
+    Radix Sort & 120 \\
+    \hline
+    Bucket Sort & 40 \\
+    \hline
+    Counting Sort & 30 \\
+    \hline
+    \end{tabular}
+\end{table}
+
+This was tested in PyCharm. The code for the algorithms and the numbers array are posted here: https://github.com/LDan03/Sorting-Algorithms-for-MPI-Paper
+
+The complexities of the nine algorithms are the following:
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|p{2.1cm}|p{2.5cm}|p{2.1cm}|c|}
+        \hline
+        \textbf{Algorithm} & \textbf{Best Time Complexity} & \textbf{Average Time Complexity} & \textbf{Worst Time Complexity} & \textbf{Space Complexity} \\
+        \hline
+        Bubble Sort & $O(n)$ & $O(n^2)$ & $O(n^2)$ & $O(1)$ \\
+        Selection Sort & $O(n^2)$ & $O(n^2)$ & $O(n^2)$ & $O(1)$ \\
+        Insertion Sort & $O(n)$ & $O(n^2)$ & $O(n^2)$ & $O(1)$ \\
+        Merge Sort & $O(n \log n)$ & $O(n \log n)$ & $O(n \log n)$ & $O(n)$ \\
+        Quick Sort & $O(n \log n)$ & $O(n \log n)$ & $O(n^2)$ & $O(\log n)$ \\
+        Heap Sort & $O(n \log n)$ & $O(n \log n)$ & $O(n \log n)$ & $O(1)$ \\
+        Radix Sort & $O(d \cdot (n + k))$ & $O(d \cdot (n + k))$ & $O(d \cdot (n + k))$ & $O(n + k)$ \\
+        Bucket Sort & $O(n^2)$ & $O(n + k)$ & $O(n^2)$ & $O(n + k)$ \\
+        Counting Sort & $O(n + k)$ & $O(n + k)$ & $O(n + k)$ & $O(k)$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\newpage
+
+Bubble Sort, Selection Sort, and Insertion Sort are simple and intuitive algorithms suitable for small to medium-sized datasets or partially sorted arrays. However, their time complexity of $O(n^2)$ makes them less efficient for large or heavily unsorted datasets.
+
+Merge Sort, Quick Sort, and Heap Sort are efficient comparison-based sorting algorithms that provide consistent performance with a time complexity of $O(n \log n)$ in all cases. They are suitable for sorting large datasets and offer different trade-offs between time complexity and space complexity.
+
+Radix Sort and Bucket Sort are non-comparative sorting algorithms that exploit specific properties of input data. Radix Sort is efficient for sorting elements with a fixed number of digits or characters, while Bucket Sort performs well when the data is uniformly distributed over a range. Both algorithms can achieve linear time complexity and have their unique applications.
+
+Counting Sort is a highly efficient algorithm for datasets with limited value ranges. It provides linear time complexity by counting occurrences and repositioning elements. It is particularly effective for sorting integers or characters within a known range.
+
+In conclusion each algorithm has its strengths and weaknesses, and the choice of the sorting algorithm depends on the specific requirements of the problem at hand. Factors such as input size, data distribution, stability, and memory constraints should be considered when selecting an appropriate sorting algorithm.
+
+\newpage
+\section{Bibliography} \label{sec:bibliography}
+\begin{thebibliography}{3}
+
+\bibitem{ref1}
+"Introduction to Algorithms" by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein
+
+\bibitem{ref2}
+https://www.geeksforgeeks.org/introduction-to-sorting-algorithm/
+
+\bibitem{ref3}
+https://realpython.com/sorting-algorithms-python/
+
+\end{thebibliography}
+
+\end{document}
